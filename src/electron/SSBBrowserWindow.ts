@@ -1,12 +1,11 @@
 import electron = require('electron');
 import * as windowStateKeeper from 'electron-window-state';
 import { BrowserWindow } from 'electron';
-import SSBBrowserView from './SSBBrowserView';
 
 export default class SSBBrowserWindow {
-  private window: Electron.BrowserWindow;
+  public window: Electron.BrowserWindow;
+  private browserView: Electron.BrowserView;
   private match: string;
-  private browserView: SSBBrowserView;
 
   constructor(options) {
     this.match = options.match;
@@ -49,14 +48,10 @@ export default class SSBBrowserWindow {
     });
   }
 
-  public loadUrl(url: string) {
-    this.browserView.loadUrl(url);
+  public addBrowserView(browserView: Electron.BrowserView) {
+    this.browserView = browserView;
+    this.window.setBrowserView(browserView);
   }
 
-  private setupBrowserView() {
-    this.browserView = new SSBBrowserView({
-      match: this.match,
-      parentWindow: this.window
-    });
-  }
+  private setupBrowserView() {}
 }
