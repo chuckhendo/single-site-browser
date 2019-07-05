@@ -1,4 +1,4 @@
-import { app, BrowserWindow, BrowserView } from 'electron';
+import { app } from 'electron';
 import SSBBrowserWindow from './SSBBrowserWindow';
 import SSBBrowserView from './SSBBrowserView';
 
