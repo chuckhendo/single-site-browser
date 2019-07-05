@@ -12,8 +12,6 @@ interface IOptions {
 }
 
 export default function launchElectron(url: string, passedOptions: IOptions) {
-  // const options = { _: [``], siteUrl: url };
-  // console.log(oArgv(options));
   const options = [
     `${__dirname}/electron/index.js`,
     `--url=${normalizeUrl(url)}`,
