@@ -7,6 +7,8 @@ const electronPath: string = electron;
 
 interface IOptions {
   match: string;
+  screen: number;
+  debug: boolean;
 }
 
 export default function launchElectron(url: string, passedOptions: IOptions) {
@@ -19,7 +21,7 @@ export default function launchElectron(url: string, passedOptions: IOptions) {
   ];
 
   const cwd = (process && process.cwd()) || __dirname;
-  return spawn(electronPath, options, { cwd, detached: true });
+  return spawn(electronPath, options, { cwd, detached: !passedOptions.debug });
 }
 
 function parsePassedOptions(passedOptions: IOptions): string[] {

@@ -25,6 +25,9 @@ const cli = meow(
       },
       screen: {
         type: 'string'
+      },
+      debug: {
+        type: 'boolean'
       }
     }
   }
@@ -36,4 +39,10 @@ if (cli.input.length === 0) {
 }
 
 const spawnStream = launchElectron(cli.input[0], cli.flags);
-process.exit();
+
+if (cli.flags.debug) {
+  spawnStream.stdout.on('data', chunk => console.log(chunk.toString()));
+  spawnStream.stderr.on('data', chunk => console.error(chunk.toString()));
+} else {
+  process.exit();
+}
