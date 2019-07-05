@@ -35,11 +35,13 @@ export default class SSBBrowserWindow {
       width: screenBounds.width || mainWindowState.width,
       height: screenBounds.height || mainWindowState.height,
       webPreferences: {
-        nodeIntegration: false
+        nodeIntegration: true
       }
     });
 
-    this.setupBrowserView();
+    // load renderer for UI
+    this.window.loadFile('../../public/index.html');
+    this.window.webContents.openDevTools();
 
     mainWindowState.manage(this.window);
 
