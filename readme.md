@@ -17,3 +17,13 @@ or
 - `ssb localhost.com --match *localhost.com/**` - Match option changes how links are determined to be external or not.
   In this case, links that will stay internal include www.localhost.com and subdomain.localhost.com/subpage.
 - `ssb localhost:3000 --screen 2` - opens the browser on your second display, and is sized to use the entire screen
+
+## Programmatic Use
+
+This package can also be used in Node. Just install the package locally with `npm install @chuckhendo/single-site-browser` or `yarn add @chuckhendo/single-site-browser`.
+
+```
+const { ssb } = require('@chuckhendo/single-site-browser');
+
+ssb('localhost.com', { screen: 2, match: '*localhost.com/**' });
+```
