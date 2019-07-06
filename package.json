@@ -3,7 +3,7 @@
   "bin": {
     "ssb": "dist/cli.js"
   },
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
