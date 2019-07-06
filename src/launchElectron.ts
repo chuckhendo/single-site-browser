@@ -1,5 +1,5 @@
-import * as electron from 'electron';
 import { spawn } from 'child_process';
+import * as electron from 'electron';
 import * as normalizeUrl from 'normalize-url';
 
 //@ts-ignore

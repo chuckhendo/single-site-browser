@@ -44,7 +44,7 @@
       "prettier --write",
       "git add"
     ],
-    "*.{ts,js}": [
+    "src/**/*.{ts,js}": [
       "eslint --fix",
       "git add"
     ]
