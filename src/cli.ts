@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import * as meow from 'meow';
-import launchElectron from './launchElectron';
+import { ssb } from '.';
 
 const cli = meow(
   `
@@ -38,7 +38,7 @@ if (cli.input.length === 0) {
   process.exit();
 }
 
-const spawnStream = launchElectron(cli.input[0], cli.flags);
+const spawnStream = ssb(cli.input[0], cli.flags);
 
 if (cli.flags.debug) {
   spawnStream.stdout.on('data', chunk => console.log(chunk.toString()));

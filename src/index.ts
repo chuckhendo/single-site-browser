@@ -11,7 +11,7 @@ interface IOptions {
   debug: boolean;
 }
 
-export default function launchElectron(url: string, passedOptions: IOptions) {
+export function ssb(url: string, passedOptions: IOptions) {
   const options = [
     `${__dirname}/electron/index.js`,
     `--url=${normalizeUrl(url)}`,
