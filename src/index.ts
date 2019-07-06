@@ -6,12 +6,12 @@ import * as normalizeUrl from 'normalize-url';
 const electronPath: string = electron;
 
 interface IOptions {
-  match: string;
-  screen: number;
-  debug: boolean;
+  match?: string;
+  screen?: number;
+  debug?: boolean;
 }
 
-export function ssb(url: string, passedOptions: IOptions) {
+export function ssb(url: string, passedOptions: IOptions = {}) {
   const options = [
     `${__dirname}/electron/index.js`,
     `--url=${normalizeUrl(url)}`,
