@@ -5,13 +5,19 @@ import * as normalizeUrl from 'normalize-url';
 //@ts-ignore
 const electronPath: string = electron;
 
-interface IOptions {
+interface Options {
   match?: string;
   screen?: number;
   debug?: boolean;
 }
 
-export function ssb(url: string, passedOptions: IOptions = {}) {
+function parsePassedOptions(passedOptions: Options): string[] {
+  return Object.keys(passedOptions).map(key => {
+    return `--${key}=${passedOptions[key]}`;
+  });
+}
+
+export function ssb(url: string, passedOptions: Options = {}) {
   const options = [
     `${__dirname}/electron/index.js`,
     `--url=${normalizeUrl(url)}`,
@@ -20,10 +26,4 @@ export function ssb(url: string, passedOptions: IOptions = {}) {
 
   const cwd = (process && process.cwd()) || __dirname;
   return spawn(electronPath, options, { cwd, detached: !passedOptions.debug });
-}
-
-function parsePassedOptions(passedOptions: IOptions): string[] {
-  return Object.keys(passedOptions).map(key => {
-    return `--${key}=${passedOptions[key]}`;
-  });
 }

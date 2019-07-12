@@ -2,7 +2,7 @@ import * as micromatch from 'micromatch';
 import { BrowserView } from 'electron';
 import * as open from 'open';
 
-interface ISSBBrowserViewOptions {
+interface SSBBrowserViewOptions {
   match: string;
 }
 
@@ -14,7 +14,7 @@ export default class SSBBrowserView {
   private match: string;
   private siteHost: string;
 
-  constructor(options: ISSBBrowserViewOptions) {
+  public constructor(options: SSBBrowserViewOptions) {
     this.view = new BrowserView();
     this.webContents = this.view.webContents;
     this.match = options.match;
@@ -41,7 +41,7 @@ export default class SSBBrowserView {
     this.view.setBounds(bounds);
   }
 
-  determineIfExternal = (event: Electron.Event, url: string) => {
+  private determineIfExternal = (event: Electron.Event, url: string) => {
     const newUrl = new URL(url);
     let isSameSite = this.siteHost === newUrl.host;
     const match = this.getMatchUrl(url);
