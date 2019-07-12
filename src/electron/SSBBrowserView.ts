@@ -8,33 +8,90 @@ interface SSBBrowserViewOptions {
 
 const protocolMatch = new RegExp(/.*:\/\//);
 
+const isMac = process.platform === 'darwin';
+
+enum ShortcutType {
+  None,
+  Back,
+  Forward,
+  Home
+}
+
+const defaultShortcutValues = {
+  shift: false,
+  control: false,
+  alt: false,
+  meta: false,
+  type: 'keyDown'
+};
+
+const shortcuts = [
+  {
+    ...defaultShortcutValues,
+    shortcutType: ShortcutType.Back,
+    key: 'ArrowLeft',
+    meta: isMac,
+    alt: !isMac
+  },
+  {
+    ...defaultShortcutValues,
+    shortcutType: ShortcutType.Forward,
+    key: 'ArrowRight',
+    meta: isMac,
+    alt: !isMac
+  },
+  {
+    ...defaultShortcutValues,
+    shortcutType: ShortcutType.Home,
+    key: 'h',
+    meta: isMac,
+    shift: isMac,
+    alt: !isMac
+  }
+];
+
 export default class SSBBrowserView {
   public webContents: Electron.WebContents;
   public view: BrowserView;
   private match: string;
   private siteHost: string;
+  private baseUrl: string;
 
   public constructor(options: SSBBrowserViewOptions) {
     this.view = new BrowserView();
     this.webContents = this.view.webContents;
     this.match = options.match;
+    this.bindEvents();
   }
 
   public loadUrl(url: string) {
+    this.baseUrl = url;
     this.webContents.loadURL(url);
     this.siteHost = new URL(url).host;
   }
 
   public initialize(bounds) {
+    // open developer tools
+    this.webContents.openDevTools();
+
     this.setSize(bounds);
     this.view.setAutoResize({ width: true, height: true });
 
     // events to determine if should be opened in external browser
     this.webContents.on('will-navigate', this.determineIfExternal);
     this.webContents.on('new-window', this.determineIfExternal);
+  }
 
-    // open developer tools
-    this.webContents.openDevTools();
+  public goBack() {
+    this.webContents.goBack();
+  }
+
+  public goForward() {
+    this.webContents.goForward();
+  }
+
+  public goHome() {
+    this.webContents.loadURL(this.baseUrl);
   }
 
   private setSize(bounds) {
@@ -62,5 +119,32 @@ export default class SSBBrowserView {
     return protocolMatch.test(this.match)
       ? this.match
       : `${protocol}//${this.match}`;
+  }
+
+  private bindEvents() {
+    this.webContents.on('before-input-event', (event, input) => {
+      const type = this.getTypeForInput(input);
+      if (type === ShortcutType.Back) {
+        this.goBack();
+      } else if (type === ShortcutType.Forward) {
+        this.goForward();
+      } else if (type === ShortcutType.Home) {
+        this.goHome();
+      }
+    });
+  }
+
+  private getTypeForInput(input): ShortcutType {
+    if (input.type !== 'keyDown') return;
+    const foundShortcut = shortcuts.find(shortcut => {
+      const keys = Object.keys(shortcut);
+      return keys.every(key => {
+        if (key === 'shortcutType') return true;
+        return shortcut[key] === input[key];
+      });
+    });
+
+    if (!foundShortcut) return ShortcutType.None;
+    return foundShortcut.shortcutType;
   }
 }
