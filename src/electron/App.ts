@@ -9,7 +9,7 @@ export default class App {
   private screen: number;
   private match: string;
 
-  createWindow = () => {
+  private createWindow = () => {
     this.parentWindow = new SSBBrowserWindow({
       screen: this.screen,
       match: this.match
@@ -41,7 +41,7 @@ export default class App {
     });
   };
 
-  constructor({ url, screen, match }) {
+  public constructor({ url, screen, match }) {
     this.originalUrl = url;
     this.screen = screen;
     this.match = match;

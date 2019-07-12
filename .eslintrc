@@ -1,5 +1,9 @@
 {
-  "extends": ["prettier", "eslint:recommended"],
+  "extends": [
+    "prettier",
+    "plugin:@typescript-eslint/recommended",
+    "prettier/@typescript-eslint"
+  ],
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint", "import"],
   "parserOptions": {
@@ -9,6 +13,7 @@
     "node": true
   },
   "rules": {
-    "import/order": ["error"]
+    "import/order": ["error"],
+    "@typescript-eslint/explicit-function-return-type": ["off"]
   }
 }

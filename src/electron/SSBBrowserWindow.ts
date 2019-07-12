@@ -7,7 +7,7 @@ export default class SSBBrowserWindow {
   private browserView: Electron.BrowserView;
   private match: string;
 
-  constructor(options) {
+  public constructor(options) {
     this.match = options.match;
     let screenBounds = {
       x: undefined,
