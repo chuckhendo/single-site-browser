@@ -18,6 +18,12 @@ or
   In this case, links that will stay internal include www.localhost.com and subdomain.localhost.com/subpage.
 - `ssb localhost:3000 --screen 2` - opens the browser on your second display, and is sized to use the entire screen
 
+## Keyboard shortcuts
+
+- `cmd+left arrow`: back
+- `cmd+right arrow`: forward
+- `cmd+shift+h`: back to original url that you entered on command line
+
 ## Programmatic Use
 
 This package can also be used in Node. Just install the package locally with `npm install @chuckhendo/single-site-browser` or `yarn add @chuckhendo/single-site-browser`.
