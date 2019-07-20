@@ -75,7 +75,12 @@ export default class SSBBrowserView {
     this.webContents.openDevTools();
 
     this.setSize(bounds);
-    this.view.setAutoResize({ width: true, height: true });
+    this.view.setAutoResize({
+      width: true,
+      height: true,
+      horizontal: true,
+      vertical: true
+    });
 
     // events to determine if should be opened in external browser
     this.webContents.on('will-navigate', this.determineIfExternal);
