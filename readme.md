@@ -50,3 +50,10 @@ ssb('localhost.com', { screen: 2, match: '*localhost.com/**' });
     }
     ```
 4. Launch debugger by going to the Debug view and pressing "Start Debugging" 
+
+## Versions
+|          |               |
+|----------|---------------|
+| Electron | 6.0.0-beta.13 |
+| Chrome   | 76.0.3809.60  |
+
