@@ -33,6 +33,9 @@ const cli = meow(
       },
       debuggingPort: {
         type: 'string'
+      },
+      devTools: {
+        type: 'string'
       }
     }
   }

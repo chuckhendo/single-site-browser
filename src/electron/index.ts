@@ -5,5 +5,12 @@ process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
 
 const cli = meow(``);
 
-const { url, screen, match, debuggingPort } = cli.flags;
-new App({ url, screen, match, debuggingPort });
+const { url, screen, match, debuggingPort, devTools } = cli.flags;
+
+new App({
+  url,
+  screen,
+  match,
+  debuggingPort,
+  devTools: devTools ? devTools.split(',').map(tool => tool.trim()) : undefined
+});

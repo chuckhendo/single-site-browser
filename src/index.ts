@@ -10,6 +10,7 @@ interface Options {
   screen?: number;
   debug?: boolean;
   debuggingPort?: string;
+  devTools?: string;
 }
 
 function parsePassedOptions(passedOptions: Options): string[] {
