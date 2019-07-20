@@ -1,44 +1,18 @@
 import { app } from 'electron';
 import SSBBrowserWindow from './SSBBrowserWindow';
-import SSBBrowserView from './SSBBrowserView';
 
 export default class App {
-  private parentWindow: SSBBrowserWindow;
-  private browserView: SSBBrowserView;
+  private browserWindow: SSBBrowserWindow;
   private originalUrl: string;
   private screen: number;
   private match: string;
 
   private createWindow = () => {
-    this.parentWindow = new SSBBrowserWindow({
+    this.browserWindow = new SSBBrowserWindow({
       screen: this.screen,
       match: this.match
     });
-
-    this.browserView = new SSBBrowserView({
-      match: this.match
-    });
-
-    this.parentWindow.addBrowserView(this.browserView.view);
-    const contentSize = this.parentWindow.window.getContentSize();
-
-    const bounds = {
-      x: 0,
-      y: 0,
-      width: contentSize[0],
-      height: contentSize[1]
-    };
-
-    this.browserView.initialize(bounds);
-
-    this.browserView.loadUrl(this.originalUrl);
-
-    // update window title to "[PAGE TITLE] ([URL])"
-    this.browserView.webContents.on('page-title-updated', (event, title) => {
-      this.parentWindow.window.setTitle(
-        `${title} (${this.browserView.webContents.getURL()})`
-      );
-    });
+    this.browserWindow.loadUrl(this.originalUrl);
   };
 
   public constructor({ url, screen, match, debuggingPort }) {
@@ -57,7 +31,7 @@ export default class App {
     });
 
     app.on('activate', () => {
-      if (this.parentWindow === null) {
+      if (this.browserWindow === null) {
         this.createWindow();
       }
     });
