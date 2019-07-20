@@ -9,6 +9,7 @@ interface Options {
   match?: string;
   screen?: number;
   debug?: boolean;
+  debuggingPort?: string;
 }
 
 function parsePassedOptions(passedOptions: Options): string[] {

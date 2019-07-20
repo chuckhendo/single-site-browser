@@ -41,10 +41,14 @@ export default class App {
     });
   };
 
-  public constructor({ url, screen, match }) {
+  public constructor({ url, screen, match, debuggingPort }) {
     this.originalUrl = url;
     this.screen = screen;
     this.match = match;
+
+    if (debuggingPort) {
+      app.commandLine.appendSwitch('remote-debugging-port', debuggingPort);
+    }
 
     app.on('ready', this.createWindow);
 

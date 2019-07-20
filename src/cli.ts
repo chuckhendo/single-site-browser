@@ -11,11 +11,13 @@ const cli = meow(
 	Options
     --match Wildcard string to determine what should stay in single site browser or open in default browser
     --screen Index of which screen to put the window on
+    --debugging-port Enable Chrome remote debugging
 
 	Examples
     $ ssb http://localhost:3000
     $ ssb https://google.com --match *.google.com/*
     $ ssb http://localhost:3000 --screen 2
+    $ ssb http://localhost:3000 --debugging-port 9222
 
 `,
   {
@@ -28,6 +30,9 @@ const cli = meow(
       },
       debug: {
         type: 'boolean'
+      },
+      debuggingPort: {
+        type: 'string'
       }
     }
   }
