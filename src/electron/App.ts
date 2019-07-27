@@ -1,4 +1,5 @@
 import { app } from 'electron';
+import * as contextMenu from 'electron-context-menu';
 import SSBBrowserWindow from './SSBBrowserWindow';
 
 export default class App {
@@ -12,6 +13,12 @@ export default class App {
       screen: this.screen,
       match: this.match
     });
+
+    contextMenu({
+      window: this.browserWindow.window,
+      showInspectElement: true
+    });
+
     this.browserWindow.loadUrl(this.originalUrl);
   };
 
