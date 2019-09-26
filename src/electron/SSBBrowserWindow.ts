@@ -2,6 +2,7 @@ import * as micromatch from 'micromatch';
 import electron = require('electron');
 import * as windowStateKeeper from 'electron-window-state';
 import { BrowserWindow } from 'electron';
+import * as open from 'open';
 
 const protocolMatch = new RegExp(/.*:\/\//);
 
